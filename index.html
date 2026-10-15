@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#16091e">
+<title>শ্রী শ্রী শ্যামা পূজা ২০২৬</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#16091e;color:#fff1d1;text-align:center;font-family:Georgia,serif}
+section{min-height:100vh;padding:42px 17px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;position:relative;overflow:hidden;background:radial-gradient(ellipse at top,#63204c,#16091e 70%)}
+.hidden{display:none!important}
+h1{font-size:clamp(34px,9vw,52px);color:#ffd875;text-shadow:0 0 20px #ff548e;margin:8px}
+h2{color:#ffd875}
+p{font-size:18px;line-height:1.8;max-width:620px}
+button,.filebtn{border:1px solid #ffda82;border-radius:28px;padding:12px 18px;background:linear-gradient(120deg,#ffd36d,#e9759a);color:#301128;font-size:16px;font-weight:bold;cursor:pointer;margin:4px}
+.card{width:min(100%,560px);padding:18px;border:1px solid #c99b5d;border-radius:20px;background:#ffffff0b}
+.lamp{font-size:55px;filter:drop-shadow(0 0 14px orange);animation:flicker .8s infinite alternate}
+@keyframes flicker{to{filter:drop-shadow(0 0 25px #ff9e20)}}
+#lights{position:fixed;top:0;left:0;width:100%;height:9px;z-index:10;display:flex;justify-content:space-around;pointer-events:none}
+.bulb{width:12px;height:12px;border-radius:50%;background:#ffef88;box-shadow:0 0 15px currentColor}
+.lighting-off .bulb{background:#444;box-shadow:none}
+#sparkles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.spark{position:absolute;font-size:25px;animation:burst 1.4s ease-out forwards}
+@keyframes burst{0%{transform:scale(.2);opacity:0}30%{opacity:1}100%{transform:translateY(-100px) scale(1.8);opacity:0}}
+input,textarea,select{width:100%;padding:12px;border-radius:10px;border:1px solid #e7bd77;background:#fff8ed;color:#241020;font-size:16px;margin:6px 0}
+video,canvas{max-width:100%;border-radius:12px}
+#dance{font-size:65px;animation:dance .6s infinite alternate}
+@keyframes dance{to{transform:rotate(12deg) scale(1.12)}}
+footer{font-size:14px;color:#e6c6dd;margin-top:16px}
+</style>
+</head>
+<body>
+<div id="lights" class="lighting-off"></div>
+<div id="sparkles"></div>
+
+<section id="home">
+<div class="lamp">🪔</div>
+<p>🙏 কৃষ্ণদেবপুর দাস পাড়া 🙏</p>
+<h1>শ্রী শ্রী শ্যামা<br>পূজা ২০২৬</h1>
+<p>আলোয় ভরে উঠুক রাত, মায়ের আশীর্বাদে আনন্দ ছড়িয়ে পড়ুক সবার মাঝে।</p>
+<button onclick="go('festival')">✨ উৎসবে প্রবেশ করো ✨</button>
+<button onclick="toggleLights()">💡 লাইটিং অন / অফ</button>
+<button onclick="go('sound')">🎤 মাইক ও গান</button>
+<button onclick="go('sindoor')">🌺 সিঁদুর খেলা</button>
+<footer>শুভ শ্যামাপুজো • শুভ দীপাবলি</footer>
+</section>
+
+<section id="festival" class="hidden">
+<div class="lamp">🎆</div>
+<h1>আলোর উৎসব</h1>
+<p>রঙিন আলো, বাজির ঝলক আর নাচ-গানে জমে উঠুক পুজোর রাত!</p>
+<div class="card">
+<h2>💡 প্যান্ডেল লাইটিং</h2>
+<p>ওয়েবসাইটের আলো জ্বালাও বা নিভিয়ে দাও।</p>
+<button onclick="toggleLights()">লাইটিং অন / অফ</button>
+<div class="lamp">🪔 🪔 🪔</div>
+</div>
+<div class="card">
+<h2>🎆 আতশবাজির অ্যানিমেশন</h2>
+<p>স্ক্রিনে আলোর ঝলক দেখো।</p>
+<button onclick="fireworks()">🎇 বাজি জ্বালাও</button>
+</div>
+<div class="card">
+<h2>💃 নাচের আসর</h2>
+<div id="dance">🥁 💃 🕺</div>
+<p>গান চালিয়ে উৎসবের আনন্দ উপভোগ করো!</p>
+<button onclick="go('sound')">🎵 গান বেছে নাও</button>
+</div>
+<button onclick="go('sindoor')">পরের পাতা → সিঁদুর খেলা</button>
+<button onclick="go('home')">← প্রথম পাতা</button>
+</section>
+
+<section id="sound" class="hidden">
+<div class="lamp">🎤</div>
+<h1>মাইক ও গানের আসর</h1>
+<p>নিজের অডিও ফাইল বেছে চালাও।</p>
+<div class="card">
+<label for="audioFiles">🎵 ফোন থেকে অডিও ফাইল বেছে নাও</label>
+<input id="audioFiles" type="file" accept="audio/*" multiple>
+<select id="trackSelect"><option value="">প্রথমে অডিও ফাইল বেছে নাও</option></select>
+<audio id="player" controls style="width:100%;margin-top:12px"></audio>
+<p id="audioStatus">অডিও বেছে নিলে এখানে নাম দেখা যাবে।</p>
+<button onclick="playTrack()">▶ গান চালাও</button>
+<button onclick="pauseTrack()">⏸ পজ</button>
+<button onclick="stopTrack()">⏹ বন্ধ</button>
+</div>
+<div class="card">
+<h2>কী কী চালাতে পারবে?</h2>
+<p>ঢাক ও শঙ্খ, শ্যামাসংগীত, পুজোর গান, DJ ও নাচের গান—তোমার ফোনে থাকা অডিও ফাইল থেকে বেছে নাও।</p>
+</div>
+<button onclick="go('festival')">← উৎসবের পাতা</button>
+<button onclick="go('home')">প্রথম পাতা</button>
+</section>
+
+<section id="sindoor" class="hidden">
+<div class="lamp">🌺</div>
+<h1>সিঁদুর খেলা</h1>
+<p>দশমীর রঙে ভরে উঠুক ভালোবাসা ও আনন্দ।</p>
+<div class="card">
+<p>ছবি তুলতে ক্যামেরার অনুমতি দাও। ছবি এই পাতায় থাকবে; কোথাও আপলোড করা হবে না।</p>
+<video id="video" autoplay playsinline class="hidden"></video>
+<canvas id="canvas" class="hidden"></canvas>
+<button onclick="cameraStart()">📸 ক্যামেরা খোলো</button>
+<button onclick="takePhoto()">ছবি তোলো</button>
+<button onclick="downloadPhoto()">ছবি সেভ করো</button>
+<p id="cameraStatus"></p>
+</div>
+<button onclick="go('immersion')">পরের পাতা → বিসর্জন</button>
+<button onclick="go('festival')">← আগের পাতা</button>
+</section>
+
+<section id="immersion" class="hidden">
+<div class="lamp">🪔</div>
+<h1>মায়ের বিসর্জন</h1>
+<p>বিদায় মা, আবার এসো। মনের কথা মাকে লিখে রাখো।</p>
+<div class="card">
+<textarea id="wish" rows="4" placeholder="মাকে কী বলবে?"></textarea>
+<button onclick="floatLamp()">🪔 প্রদীপ ভাসাও</button>
+<div id="floatingLamp" class="lamp"></div>
+<p id="wishResult"></p>
+</div>
+<button onclick="go('final')">পরের পাতা → শেষ কথা</button>
+<button onclick="go('sindoor')">← আগের পাতা</button>
+</section>
+
+<section id="final" class="hidden">
+<div class="lamp">🙏🌺🙏</div>
+<h1>শেষ কথা</h1>
+<p>মা, তোমার আলোয় দূর হোক সব অন্ধকার। সকলের জীবনে আসুক শান্তি, ভালোবাসা ও আনন্দ।</p>
+<p>নারীকে সম্মান করো, সকলের পাশে দাঁড়াও। এটাই হোক মায়ের প্রতি আমাদের সত্যিকারের শ্রদ্ধা।</p>
+<button onclick="go('home')">↻ আবার শুরু করো</button>
+<footer>শুভ শ্যামাপুজো ২০২৬ • কৃষ্ণদেবপুর দাস পাড়া</footer>
+</section>
+
+<script>
+function go(id){
+document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+window.scrollTo(0,0);
+}
+const lights=document.getElementById('lights');
+for(let i=0;i<28;i++){
+const b=document.createElement('span');
+b.className='bulb';
+b.style.color=['#ff335c','#ffe45e','#51ffb4','#53caff','#dc78ff'][i%5];
+b.style.background=b.style.color;
+b.style.boxShadow='0 0 12px '+b.style.color;
+lights.appendChild(b);
+}
+let lightOn=false;
+function toggleLights(){
+lightOn=!lightOn;
+lights.classList.toggle('lighting-off',!lightOn);
+lights.querySelectorAll('.bulb').forEach((b,i)=>{
+b.style.background=lightOn?b.style.color:'#444';
+b.style.boxShadow=lightOn?'0 0 15px '+b.style.color:'none';
+});
+}
+function fireworks(){
+const box=document.getElementById('sparkles');
+for(let i=0;i<35;i++){
+const s=document.createElement('span');
+s.className='spark';
+s.textContent=['🎆','✨','🌟','🎇'][Math.floor(Math.random()*4)];
+s.style.left=Math.random()*95+'%';
+s.style.top=(20+Math.random()*70)+'%';
+s.style.animationDelay=Math.random()*.6+'s';
+box.appendChild(s);
+setTimeout(()=>s.remove(),2200);
+}
+}
+const files=document.getElementById('audioFiles');
+const select=document.getElementById('trackSelect');
+const player=document.getElementById('player');
+let audioURLs=[];
+files.addEventListener('change',()=>{
+audioURLs.forEach(URL.revokeObjectURL);
+audioURLs=[];
+select.innerHTML='';
+Array.from(files.files).forEach((f,i)=>{
+const url=URL.createObjectURL(f);audioURLs.push(url);
+const opt=document.createElement('option');
+opt.value=i;opt.textContent=f.name;select.appendChild(opt);
+});
+document.getElementById('audioStatus').textContent=files.files.length?
+files.files.length+'টি অডিও ফাইল পাওয়া গেছে। একটি বেছে নাও।':'কোনও ফাইল বাছা হয়নি।';
+if(files.files.length)loadTrack();
+});
+function loadTrack(){
+const i=Number(select.value);
+if(audioURLs[i]){player.src=audioURLs[i];player.load();}
+}
+select.addEventListener('change',loadTrack);
+function playTrack(){
+if(!player.src){document.getElementById('audioStatus').textContent='আগে ফোন থেকে একটি অডিও ফাইল বেছে নাও।';return;}
+player.play().catch(()=>document.getElementById('audioStatus').textContent='আবার প্লে চাপো।');
+}
+function pauseTrack(){player.pause();}
+function stopTrack(){player.pause();player.currentTime=0;}
+let stream=null;
+async function cameraStart(){
+try{
+if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)throw Error();
+stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false});
+const v=document.getElementById('video');v.srcObject=stream;v.classList.remove('hidden');
+document.getElementById('cameraStatus').textContent='ক্যামেরা চালু হয়েছে।';
+}catch(e){
+document.getElementById('cameraStatus').textContent='ক্যামেরা চালু হয়নি। প্রকাশিত HTTPS ওয়েবসাইটে আবার চেষ্টা করো।';
+}
+}
+function takePhoto(){
+const v=document.getElementById('video'),c=document.getElementById('canvas');
+if(!stream||!v.videoWidth){document.getElementById('cameraStatus').textContent='আগে ক্যামেরা খোলো।';return;}
+c.width=v.videoWidth;c.height=v.videoHeight;
+c.getContext('2d').drawImage(v,0,0);
+c.classList.remove('hidden');
+document.getElementById('cameraStatus').textContent='ছবি তোলা হয়েছে। চাইলে সেভ করো।';
+}
+function downloadPhoto(){
+const c=document.getElementById('canvas');
+if(!c.width){document.getElementById('cameraStatus').textContent='আগে ছবি তোলো।';return;}
+const a=document.createElement('a');a.download='puja-photo.png';a.href=c.toDataURL('image/png');a.click();
+}
+function floatLamp(){
+const box=document.getElementById('floatingLamp');
+box.textContent='🪔';
+box.animate([{transform:'translateY(40px)',opacity:0},{transform:'translateY(0)',opacity:1},{transform:'translateY(-65px)',opacity:.25}],{duration:3500});
+document.getElementById('wishResult').textContent=document.getElementById('wish').value.trim()?
+'তোমার প্রার্থনা মায়ের কাছে রইল। শুভ হোক সকলের জীবন।':'মায়ের কাছে রইল তোমার প্রার্থনা। শুভ হোক সকলের জীবন।';
+}
+</script>
+</body>
+</html>
